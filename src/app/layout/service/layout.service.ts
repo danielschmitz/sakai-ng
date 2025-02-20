@@ -79,9 +79,21 @@ export class LayoutService {
     private initialized = false;
 
     constructor() {
+
+        const persistedConfig = localStorage.getItem('layoutConfig');
+        if (persistedConfig) {
+            try {
+                this._config = JSON.parse(persistedConfig);
+                this.layoutConfig.set(this._config);
+            } catch (error) {
+                console.error('Erro ao carregar a configuração persistida:', error);
+            }
+        }
+
         effect(() => {
             const config = this.layoutConfig();
             if (config) {
+                localStorage.setItem('layoutConfig', JSON.stringify(config));
                 this.onConfigUpdate();
             }
         });
@@ -116,7 +128,7 @@ export class LayoutService {
             .then(() => {
                 this.onTransitionEnd();
             })
-            .catch(() => {});
+            .catch(() => { });
     }
 
     toggleDarkMode(config?: layoutConfig): void {
