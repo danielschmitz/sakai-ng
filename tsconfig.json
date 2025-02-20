@@ -17,6 +17,11 @@
         "importHelpers": true,
         "target": "ES2022",
         "module": "ES2022",
+        "paths": {
+            "@enviroments": [
+                "./src/environments/environment.ts"
+            ]
+        }
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

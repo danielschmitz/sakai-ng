@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AppMenuitem } from './app.menuitem';
+import { environment } from '@enviroments';
 
 @Component({
     selector: 'app-menu',
@@ -10,21 +11,25 @@ import { AppMenuitem } from './app.menuitem';
     imports: [CommonModule, AppMenuitem, RouterModule],
     template: `<ul class="layout-menu">
         <ng-container *ngFor="let item of model; let i = index">
-            <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
-            <li *ngIf="item.separator" class="menu-separator"></li>
+            @if (item.visible !== false) {
+                <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
+                <li *ngIf="item.separator" class="menu-separator"></li>
+            }
         </ng-container>
     </ul> `
 })
 export class AppMenu {
     model: MenuItem[] = [];
+    production: boolean = environment.production;
 
     ngOnInit() {
         this.model = [
-            {
+            {   visible: true,
                 label: 'Home',
                 items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
             },
             {
+                visible: !this.production,
                 label: 'UI Components',
                 items: [
                     { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
@@ -45,6 +50,7 @@ export class AppMenu {
                 ]
             },
             {
+                visible: !this.production,
                 label: 'Pages',
                 icon: 'pi pi-fw pi-briefcase',
                 routerLink: ['/pages'],
@@ -93,6 +99,7 @@ export class AppMenu {
                 ]
             },
             {
+                visible: !this.production,
                 label: 'Hierarchy',
                 items: [
                     {
@@ -137,6 +144,7 @@ export class AppMenu {
                 ]
             },
             {
+                visible: !this.production,
                 label: 'Get Started',
                 items: [
                     {
