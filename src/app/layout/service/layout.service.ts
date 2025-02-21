@@ -1,4 +1,5 @@
 import { Injectable, effect, signal, computed } from '@angular/core';
+import { ThemeConfigType } from 'primeng/config';
 import { Subject } from 'rxjs';
 
 export interface layoutConfig {
@@ -20,6 +21,25 @@ interface LayoutState {
 interface MenuChangeEvent {
     key: string;
     routeEvent?: boolean;
+}
+
+export const getThemeConfig = () : layoutConfig => {
+    const persistedConfig = localStorage.getItem('layoutConfig');
+    if (persistedConfig) {
+        try {
+            const config = JSON.parse(persistedConfig);
+            return config;
+        } catch (error) {
+            console.error('Erro ao carregar a configuração persistida:', error);
+        }
+    }
+    return {
+        preset: 'Aura',
+        primary: 'emerald',
+        surface: null,
+        darkTheme: false,
+        menuMode: 'static'
+    };
 }
 
 @Injectable({
@@ -80,11 +100,15 @@ export class LayoutService {
 
     constructor() {
 
-        const persistedConfig = localStorage.getItem('layoutConfig');
+        const persistedConfig = getThemeConfig();
         if (persistedConfig) {
             try {
-                this._config = JSON.parse(persistedConfig);
-                this.layoutConfig.set(this._config);
+                if (persistedConfig.darkTheme) {
+                    // Evita que a tela fique branca primeiro
+                    // e depois fique no dark mode
+                    document.documentElement.classList.add('app-dark');
+                }
+                this.layoutConfig.set(persistedConfig);
             } catch (error) {
                 console.error('Erro ao carregar a configuração persistida:', error);
             }
