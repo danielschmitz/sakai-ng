@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AppMenuitem } from './app.menuitem';
 import { environment } from '@enviroments';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
     selector: 'app-menu',
@@ -21,14 +22,29 @@ import { environment } from '@enviroments';
 export class AppMenu {
     model: MenuItem[] = [];
     production: boolean = environment.production;
+    auth = inject(AuthService);
+    loggedIn: boolean = false;
 
     ngOnInit() {
+        // Atualiza o menu sempre que houver mudança no login
+        this.auth.loginState$.subscribe(isLoggedIn => {
+            this.loggedIn = isLoggedIn;
+            this.buildMenuModel();
+        });
+        // Inicializa o menu
+        this.buildMenuModel();
+    }
+
+    private buildMenuModel() {
         this.model = [
-            {   visible: true,
+            {
+                visible: true,
                 label: 'Home',
                 items: [
                     { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
-                    { label: 'Login', icon: 'pi pi-fw pi-sign-in', routerLink: ['/auth/login'] }
+                    { visible: !this.loggedIn, label: 'Login', icon: 'pi pi-fw pi-sign-in', routerLink: ['/auth/login'] },
+                    { visible: this.loggedIn, label: 'Categories', icon: 'pi pi-fw pi-sign-in', routerLink: ['/auth/login'] },
+                    { visible: this.loggedIn, label: 'Logout', icon: 'pi pi-fw pi-sign-out', command: () => this.auth.logout() },
                 ]
             },
             {
@@ -37,7 +53,7 @@ export class AppMenu {
                 items: [
                     { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'] },
                     { label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
-                    { label: 'Button', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/uikit/button'] },
+                    { label: 'Button', icon: 'pi pi-fw pi-mobile', routerLink: ['/uikit/button'] },
                     { label: 'Table', icon: 'pi pi-fw pi-table', routerLink: ['/uikit/table'] },
                     { label: 'List', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
                     { label: 'Tree', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'] },

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
@@ -105,6 +105,7 @@ import { finalize } from 'rxjs';
 export class Login {
     loginForm: FormGroup;
     auth = inject(AuthService);
+    router = inject(Router);
     loading = false;
 
     constructor(private fb: FormBuilder) {
@@ -134,6 +135,7 @@ export class Login {
                 .subscribe({
                     next: (user) => {
                         console.log({ user });
+                        this.router.navigate(['/']);
                         //this.snak.open('Login realizado com sucesso');
                     },
                     error: (error) => {
