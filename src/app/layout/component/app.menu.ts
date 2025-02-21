@@ -26,7 +26,10 @@ export class AppMenu {
         this.model = [
             {   visible: true,
                 label: 'Home',
-                items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
+                items: [
+                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
+                    { label: 'Login', icon: 'pi pi-fw pi-sign-in', routerLink: ['/auth/login'] }
+                ]
             },
             {
                 visible: !this.production,
