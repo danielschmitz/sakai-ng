@@ -20,6 +20,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { Category, CategoryService } from './category.service';
 import { Column } from '../../shared/model';
 import { MessageService } from 'primeng/api';
+import { LoadingComponent } from "../../shared/loading.component";
 
 @Component({
   selector: 'app-categories',
@@ -41,7 +42,8 @@ import { MessageService } from 'primeng/api';
     TagModule,
     InputIconModule,
     IconFieldModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    LoadingComponent
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
@@ -57,6 +59,8 @@ export class CategoriesComponent implements OnInit {
   };
   categoryDialog: boolean = false;
   submitted: boolean = false;
+  formLoading: boolean = false;
+  tableLoading: boolean = false;
   cols: Column[] = [
     { field: 'id', header: 'Id', customExportHeader: 'id' },
     { field: 'name', header: 'name' }
@@ -68,8 +72,16 @@ export class CategoriesComponent implements OnInit {
   }
 
   private fetchCategories() {
-    this.service.getAll().subscribe((categories) => {
-      this.categories.set(categories);
+    this.tableLoading = true;
+    this.service.getAll().subscribe({
+      next: (categories) => {
+        this.tableLoading = false;
+        this.categories.set(categories);
+      },
+      error: (error) => {
+        this.message.add({ severity: 'error', summary: 'Error', detail: error.error.message });
+        this.tableLoading = false;
+      }
     });
   }
 
@@ -86,16 +98,19 @@ export class CategoriesComponent implements OnInit {
   saveCategory() {
     this.submitted = true;
     if (this.category.name.trim()) {
+      this.formLoading = true;
       if (this.category.id) {
         this.service.update(this.category.id, this.category)
           .subscribe({
             next: () => {
               this.categoryDialog = false;
               this.submitted = false;
+              this.formLoading = false;
               this.fetchCategories();
             },
-            error: (err) => {
-              console.error('Error updating category:', err);
+            error: (error) => {
+              this.message.add({ severity: 'error', summary: 'Error', detail: error.error.message });
+              this.formLoading = false;
             },
             complete: () => {
               console.log('Category update completed');
@@ -108,10 +123,12 @@ export class CategoriesComponent implements OnInit {
               this.categoryDialog = false;
               this.submitted = false;
               this.category = { name: '' };
+              this.formLoading = false;
               this.fetchCategories();
             },
             error: (error) => {
               this.message.add({ severity: 'error', summary: 'Error', detail: error.error.message });
+              this.formLoading = false;
             },
             complete: () => {
               console.log('Category creation completed');

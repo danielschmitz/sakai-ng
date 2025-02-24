@@ -9,7 +9,8 @@
     </ng-template>
 </p-toolbar>
 
-<p-table #dt [value]="categories()" [rows]="10" [columns]="cols" [paginator]="true"
+
+<p-table #dt [loading]="tableLoading" [value]="categories()" [rows]="10" [columns]="cols" [paginator]="true"
     [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" [(selection)]="selectedCategories"
     [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 20, 30]">
@@ -54,13 +55,15 @@
 
 <p-dialog [(visible)]="categoryDialog" [style]="{ width: '450px' }" header="Category Details" [modal]="true">
     <ng-template #content>
-        <div class="flex flex-col gap-6">
-            <div>
-                <label for="name" class="block font-bold mb-3">Name</label>
-                <input type="text" pInputText id="name" [(ngModel)]="category.name" required autofocus fluid />
-                <small class="text-red-500" *ngIf="submitted && !category.name">Name is required.</small>
+        <app-loading [loading]="formLoading">
+            <div class="flex flex-col gap-6 min-h-80">
+                <div>
+                    <label for="name" class="block font-bold mb-3">Name</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="category.name" required autofocus fluid />
+                    <small class="text-red-500" *ngIf="submitted && !category.name">Name is required.</small>
+                </div>
             </div>
-        </div>
+        </app-loading>
     </ng-template>
 
     <ng-template #footer>
