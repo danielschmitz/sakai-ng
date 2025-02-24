@@ -1,1 +1,0 @@
-import{$b as s,Eb as n,Fb as a,gb as o}from"./chunk-7L2VHSIC.js";var i=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-categories"]],decls:2,vars:0,template:function(e,r){e&1&&(n(0,"p"),s(1,"categories works!"),a())},encapsulation:2})};export{i as CategoriesComponent};
