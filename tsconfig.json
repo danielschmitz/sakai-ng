@@ -20,6 +20,9 @@
         "paths": {
             "@enviroments": [
                 "./src/environments/environment.ts"
+            ],
+            "@shared/*": [
+                "./src/app/shared/*"
             ]
         }
     },
