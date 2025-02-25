@@ -19,8 +19,9 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { Category, CategoryService } from './category.service';
 import { Column } from '../../shared/model';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { LoadingComponent } from "../../shared/loading.component";
+import { concatMap, finalize, forkJoin, from } from 'rxjs';
 
 @Component({
   selector: 'app-categories',
@@ -46,12 +47,12 @@ import { LoadingComponent } from "../../shared/loading.component";
     LoadingComponent
   ],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss',
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class CategoriesComponent implements OnInit {
   service = inject(CategoryService);
   message = inject(MessageService);
+  confirmationService = inject(ConfirmationService);
   categories = signal<Category[]>([]);
   selectedCategories: Category[] = [];
   category: Category = {
@@ -153,5 +154,31 @@ export class CategoriesComponent implements OnInit {
     this.categoryDialog = false;
     this.submitted = false;
   }
+
+  deleteSelectedCategories() {
+    this.confirmationService.confirm({
+        message: 'Are you sure you want to delete the selected categories?',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.tableLoading = true;
+          from(this.selectedCategories)
+          .pipe(
+            concatMap((c) => this.service.delete(c.id!)),
+            finalize(() => {
+              this.fetchCategories();
+              this.selectedCategories = [];
+              this.tableLoading = false;
+              this.message.add({ severity: 'success', summary: 'Success', detail: 'Categories deleted successfully' });
+            })
+          )
+          .subscribe({
+            error: (error) => {
+              this.message.add({ severity: 'error', summary: 'Error', detail: error.error.message });
+            }
+          });
+        }
+    });
+}
 
 }
