@@ -44,6 +44,7 @@ export class AppMenu {
                     { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
                     { visible: !this.loggedIn, label: 'Login', icon: 'pi pi-fw pi-sign-in', routerLink: ['/auth/login'] },
                     { visible: this.loggedIn, label: 'Categories', icon: 'pi pi-fw pi-list', routerLink: ['/categories'] },
+                    { visible: this.loggedIn, label: 'Tasks', icon: 'pi pi-fw pi-check-square', routerLink: ['/tasks'] },
                     { visible: this.loggedIn, label: 'Logout', icon: 'pi pi-fw pi-sign-out', command: () => this.auth.logout() },
                 ]
             },

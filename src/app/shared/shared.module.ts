@@ -19,8 +19,9 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { LoadingComponent } from './loading.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
-
-
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [],
@@ -43,7 +44,10 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     InputIconModule,
     IconFieldModule,
     ConfirmDialogModule,
-    LoadingComponent
+    LoadingComponent,
+    FloatLabelModule,
+    DropdownModule,
+    CheckboxModule
   ],
   exports: [
     CommonModule,
@@ -64,8 +68,11 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     InputIconModule,
     IconFieldModule,
     ConfirmDialogModule,
-    LoadingComponent
+    LoadingComponent,
+    FloatLabelModule,
+    DropdownModule,
+    CheckboxModule
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService]
 })
 export class SharedModule { }

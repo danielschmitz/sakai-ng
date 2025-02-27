@@ -1,0 +1,32 @@
+.field {
+    margin-bottom: 1.5rem;
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    input, textarea {
+        width: 100%;
+    }
+
+    small {
+        margin-top: 0.25rem;
+        display: block;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+:host ::ng-deep {
+    .p-dropdown {
+        width: 100%;
+    }
+
+    .p-checkbox {
+        margin-right: 0.5rem;
+    }
+}
