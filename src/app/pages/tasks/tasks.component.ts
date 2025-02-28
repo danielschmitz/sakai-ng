@@ -5,12 +5,13 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Column } from '../../shared/model';
 import { TaskFormComponent } from './task-form/task-form.component';
+import { TaskKanbanComponent } from './task-kanban/task-kanban.component';
 import { concatMap, finalize, from } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [SharedModule, TaskFormComponent],
+  imports: [SharedModule, TaskFormComponent, TaskKanbanComponent],
   templateUrl: './tasks.component.html'
 })
 export class TasksComponent {
@@ -28,6 +29,7 @@ export class TasksComponent {
   };
 
   taskDialog: boolean = false;
+  kanbanDialog: boolean = false;
   submitted: boolean = false;
   formLoading: boolean = false;
   tableLoading: boolean = false;
@@ -70,6 +72,22 @@ export class TasksComponent {
     };
     this.submitted = false;
     this.taskDialog = true;
+  }
+
+  showKanban() {
+    this.kanbanDialog = true;
+  }
+
+  onTaskUpdated(task: Task) {
+    this.service.update(task.id!, task).subscribe({
+      next: () => {
+        this.fetchTasks();
+        this.message.add({ severity: 'success', summary: 'Successful', detail: 'Task Updated', life: 3000 });
+      },
+      error: (error) => {
+        this.message.add({ severity: 'error', summary: 'Error', detail: error.error.message });
+      }
+    });
   }
 
   deleteSelectedTasks() {

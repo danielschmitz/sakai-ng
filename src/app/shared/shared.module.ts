@@ -22,6 +22,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { DropdownModule } from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [],
@@ -47,7 +48,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     LoadingComponent,
     FloatLabelModule,
     DropdownModule,
-    CheckboxModule
+    CheckboxModule,
+    DragDropModule
   ],
   exports: [
     CommonModule,
@@ -71,7 +73,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     LoadingComponent,
     FloatLabelModule,
     DropdownModule,
-    CheckboxModule
+    CheckboxModule,
+    DragDropModule
   ],
   providers: [MessageService, ConfirmationService]
 })

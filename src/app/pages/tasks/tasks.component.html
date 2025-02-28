@@ -1,6 +1,7 @@
 <p-toolbar styleClass="mb-6">
     <ng-template #start>
         <p-button label="New" icon="pi pi-plus" severity="secondary" class="mr-2" (click)="newTask()" />
+        <p-button label="Kanban" icon="pi pi-th-large" severity="secondary" class="mr-2" (click)="showKanban()" />
         <p-button severity="secondary" label="Delete" icon="pi pi-trash" outlined
             [disabled]="selectedTasks.length == 0" (click)="deleteSelectedTasks()" />
     </ng-template>
@@ -72,5 +73,12 @@
     (save)="saveTask($event)"
     (cancel)="hideDialog()">
 </app-task-form>
+
+<app-task-kanban
+    [(visible)]="kanbanDialog"
+    [tasks]="tasks()"
+    (taskUpdated)="onTaskUpdated($event)"
+    (editTask)="editTask($event)">
+</app-task-kanban>
 
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
