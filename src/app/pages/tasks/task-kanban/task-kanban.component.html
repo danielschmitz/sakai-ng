@@ -1,8 +1,7 @@
 <p-dialog [(visible)]="visible" [style]="{ width: '800px' }" header="Task Kanban 📋" [modal]="true" (onHide)="onHide()">
     <div class="flex gap-4">
         <!-- To Do Column -->
-        <div class="flex-1 kanban-column">
-            <h3 class="text-xl font-bold mb-4">📝 To Do</h3>
+        <p-panel header="📝 To Do" class="flex-1">
             <div
                 cdkDropList
                 #todoList="cdkDropList"
@@ -11,23 +10,28 @@
                 class="kanban-list"
                 id="todo-list"
                 (cdkDropListDropped)="drop($event)">
-                <div class="kanban-item" 
-                    *ngFor="let task of todoTasks()" 
+                <p-card *ngFor="let task of todoTasks()" 
                     cdkDrag
-                    (dblclick)="onTaskDoubleClick(task)">
-                    <div class="flex justify-content-between align-items-center">
-                        <div class="font-bold">{{ task.name }}</div>
-                        <div class="emoji">❌</div>
-                    </div>
-                    <div class="text-sm text-gray-600">{{ task.description }}</div>
-                    <div class="text-xs text-blue-600">🏷️ {{ task.category }}</div>
-                </div>
+                    (dblclick)="onTaskDoubleClick(task)"
+                    class="kanban-item mb-3">
+                    <ng-template pTemplate="header">
+                        <div class="flex justify-content-between align-items-center">
+                            <div class="font-bold">{{ task.name }}</div>
+                            <div class="emoji">❌</div>
+                        </div>
+                    </ng-template>
+                    <p class="text-gray-600">{{ task.description }}</p>
+                    <ng-template pTemplate="footer">
+                        <p-tag severity="info" [value]="'🏷️ ' + task.category"></p-tag>
+                    </ng-template>
+                </p-card>
             </div>
-        </div>
+        </p-panel>
+
+        <p-divider layout="vertical"></p-divider>
 
         <!-- Done Column -->
-        <div class="flex-1 kanban-column">
-            <h3 class="text-xl font-bold mb-4">✅ Done</h3>
+        <p-panel header="✅ Done" class="flex-1">
             <div
                 cdkDropList
                 #doneList="cdkDropList"
@@ -36,18 +40,22 @@
                 class="kanban-list"
                 id="done-list"
                 (cdkDropListDropped)="drop($event)">
-                <div class="kanban-item" 
-                    *ngFor="let task of doneTasks()" 
+                <p-card *ngFor="let task of doneTasks()" 
                     cdkDrag
-                    (dblclick)="onTaskDoubleClick(task)">
-                    <div class="flex justify-content-between align-items-center">
-                        <div class="font-bold">{{ task.name }}</div>
-                        <div class="emoji">✅</div>
-                    </div>
-                    <div class="text-sm text-gray-600">{{ task.description }}</div>
-                    <div class="text-xs text-blue-600">🏷️ {{ task.category }}</div>
-                </div>
+                    (dblclick)="onTaskDoubleClick(task)"
+                    class="kanban-item mb-3">
+                    <ng-template pTemplate="header">
+                        <div class="flex justify-content-between align-items-center">
+                            <div class="font-bold">{{ task.name }}</div>
+                            <div class="emoji">✅</div>
+                        </div>
+                    </ng-template>
+                    <p class="text-gray-600">{{ task.description }}</p>
+                    <ng-template pTemplate="footer">
+                        <p-tag severity="info" [value]="'🏷️ ' + task.category"></p-tag>
+                    </ng-template>
+                </p-card>
             </div>
-        </div>
+        </p-panel>
     </div>
 </p-dialog>

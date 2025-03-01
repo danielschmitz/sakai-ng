@@ -2,12 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
+import { DividerModule } from 'primeng/divider';
+import { DropdownModule } from 'primeng/dropdown';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
@@ -19,62 +25,65 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { LoadingComponent } from './loading.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { DropdownModule } from 'primeng/dropdown';
-import { CheckboxModule } from 'primeng/checkbox';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    TableModule,
-    FormsModule,
     ButtonModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    TextareaModule,
-    SelectModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,
-    TagModule,
-    InputIconModule,
-    IconFieldModule,
-    ConfirmDialogModule,
-    LoadingComponent,
-    FloatLabelModule,
-    DropdownModule,
+    CardModule,
     CheckboxModule,
-    DragDropModule
+    ConfirmDialogModule,
+    DialogModule,
+    DividerModule,
+    DropdownModule,
+    DragDropModule,
+    FloatLabelModule,
+    FormsModule,
+    IconFieldModule,
+    InputIconModule,
+    InputNumberModule,
+    InputTextModule,
+    LoadingComponent,
+    PanelModule,
+    RadioButtonModule,
+    RatingModule,
+    RippleModule,
+    SelectModule,
+    TableModule,
+    TagModule,
+    TextareaModule,
+    ToastModule,
+    ToolbarModule
   ],
   exports: [
     CommonModule,
-    TableModule,
-    FormsModule,
     ButtonModule,
-    RippleModule,
-    ToastModule,
-    ToolbarModule,
-    RatingModule,
-    InputTextModule,
-    TextareaModule,
-    SelectModule,
-    RadioButtonModule,
-    InputNumberModule,
-    DialogModule,
-    TagModule,
-    InputIconModule,
-    IconFieldModule,
-    ConfirmDialogModule,
-    LoadingComponent,
-    FloatLabelModule,
-    DropdownModule,
+    CardModule,
     CheckboxModule,
-    DragDropModule
+    ConfirmDialogModule,
+    DialogModule,
+    DividerModule,
+    DropdownModule,
+    DragDropModule,
+    FloatLabelModule,
+    FormsModule,
+    IconFieldModule,
+    InputIconModule,
+    InputNumberModule,
+    InputTextModule,
+    LoadingComponent,
+    PanelModule,
+    RadioButtonModule,
+    RatingModule,
+    RippleModule,
+    SelectModule,
+    TableModule,
+    TagModule,
+    TextareaModule,
+    ToastModule,
+    ToolbarModule
   ],
   providers: [MessageService, ConfirmationService]
 })
