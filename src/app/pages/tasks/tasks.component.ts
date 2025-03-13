@@ -32,7 +32,7 @@ export class TasksComponent {
   kanbanDialog: boolean = false;
   submitted: boolean = false;
   formLoading: boolean = false;
-  tableLoading: boolean = false;
+  loading: boolean = false;
 
   cols: Column[] = [
     { field: 'name', header: 'Name' },
@@ -46,15 +46,15 @@ export class TasksComponent {
   }
 
   private fetchTasks() {
-    this.tableLoading = true;
+    this.loading = true;
     this.service.getAllTasks().subscribe({
       next: (tasks) => {
-        this.tableLoading = false;
+        this.loading = false;
         this.tasks.set(tasks);
       },
       error: (error) => {
         this.message.add({ severity: 'error', summary: 'Error', detail: error.error.message });
-        this.tableLoading = false;
+        this.loading = false;
       }
     });
   }

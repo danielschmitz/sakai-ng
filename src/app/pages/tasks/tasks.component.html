@@ -11,7 +11,7 @@
     </ng-template>
 </p-toolbar>
 
-<p-table #dt [loading]="tableLoading" [value]="tasks()" [rows]="10" [columns]="cols" [paginator]="true"
+<p-table #dt [loading]="loading" [value]="tasks()" [rows]="10" [columns]="cols" [paginator]="true"
     [globalFilterFields]="['name', 'description', 'category']" [(selection)]="selectedTasks"
     [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} tasks"
     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 20, 30]">

@@ -23,7 +23,6 @@ import { TagModule } from 'primeng/tag';
 import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
-import { LoadingComponent } from './loading.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -45,7 +44,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     InputIconModule,
     InputNumberModule,
     InputTextModule,
-    LoadingComponent,
     PanelModule,
     RadioButtonModule,
     RatingModule,
@@ -73,7 +71,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     InputIconModule,
     InputNumberModule,
     InputTextModule,
-    LoadingComponent,
     PanelModule,
     RadioButtonModule,
     RatingModule,

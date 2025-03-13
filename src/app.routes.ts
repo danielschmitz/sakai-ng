@@ -12,6 +12,8 @@ export const appRoutes: Routes = [
         children: [
             { path: '', component: Dashboard },
             { path: 'categories', loadComponent: () => import('./app/pages/categories/categories.component').then(c => c.CategoriesComponent)},
+            { path: 'categories/create', loadComponent: () => import('./app/pages/categories/create/create-category.component').then(c => c.CreateCategoryComponent)},
+            { path: 'categories/edit/:id', loadComponent: () => import('./app/pages/categories/edit/edit-category.component').then(c => c.EditCategoryComponent)},
             { path: 'tasks', loadComponent: () => import('./app/pages/tasks/tasks.component').then(c => c.TasksComponent)},
             { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
             { path: 'documentation', component: Documentation },

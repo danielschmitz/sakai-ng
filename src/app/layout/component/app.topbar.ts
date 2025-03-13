@@ -6,20 +6,19 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
 import { ButtonModule } from 'primeng/button';
+import { LogoComponent } from "./logo";
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator, ButtonModule],
+    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator, ButtonModule, LogoComponent],
     template: ` <div class="layout-topbar">
         <div class="layout-topbar-logo-container">
             <button class="layout-menu-button layout-topbar-action" (click)="layoutService.onMenuToggle()">
                 <i class="pi pi-bars"></i>
             </button>
             <a class="layout-topbar-logo" routerLink="/" class="flex flex-col">
-                <img src="assets/5.png" alt="logo" class="h-8 mr-2" />
-               <span class="ml-1 p-0 font-sans text-sm text-[color:--primary-color]">www.crmg.app</span>
-               <!--<p-button label="www.crmg.app" class="font-sans  text-smhidden sm:block" />-->
+               <app-logo></app-logo>
             </a>
         </div>
 

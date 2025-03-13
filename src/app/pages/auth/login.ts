@@ -8,7 +8,6 @@ import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { AppFloatingConfigurator } from '../../layout/component/app.floatingconfigurator';
 import { AuthService } from '../../shared/auth.service';
-import { LoadingComponent } from '../../shared/loading.component';
 import { finalize } from 'rxjs';
 
 @Component({
@@ -22,8 +21,7 @@ import { finalize } from 'rxjs';
         ReactiveFormsModule,
         RouterModule,
         RippleModule,
-        AppFloatingConfigurator,
-        LoadingComponent
+        AppFloatingConfigurator
     ],
     template: `
         <app-floating-configurator />
@@ -52,7 +50,6 @@ import { finalize } from 'rxjs';
                             <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Welcome to PrimeLand!</div>
                             <span class="text-muted-color font-medium">Sign in to continue</span>
                         </div>
-                        <app-loading [loading]="loading">
                         <form [formGroup]="loginForm" (ngSubmit)="onSignInClick()">
                             <div>
                                 <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
@@ -90,12 +87,12 @@ import { finalize } from 'rxjs';
                                 </div>
                                 <p-button 
                                     label="Sign In" 
-                                    styleClass="w-full" 
+                                    styleClass="w-full"
+                                    [loading]="loading" 
                                     type="submit">
                                 </p-button>
                             </div>
                         </form>
-                        </app-loading>
                     </div>
                 </div>
             </div>
